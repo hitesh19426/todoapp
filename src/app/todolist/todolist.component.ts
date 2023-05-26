@@ -17,22 +17,31 @@ export class TodolistComponent {
 
   addPendingTask(title: string = 'Pending Task') {
     console.log('add pending task called in component');
-    this.pendingTasks = this.taskService.addPendingTask(title);
-    console.log(this.pendingTasks);
-    
+    this.taskService.addPendingTask(title);
   }
 
   addCompletedTask(title: string = 'Completed Task') {
-    this.completedTasks = this.taskService.addCompletedTask(title);
+    this.taskService.addCompletedTask(title);
   }
 
   deletePendingTask(id: number) {
-    this.pendingTasks = this.taskService.deletePendingTask(id);
+    this.taskService.deletePendingTask(id);
+    this.pendingTasks = this.taskService.getPendingTasks();
   }
 
   deleteCompletedTask(id: number) {
-    this.completedTasks = this.taskService.deleteCompletedTask(id);
+    this.taskService.deleteCompletedTask(id);
+    this.completedTasks = this.taskService.getCompletedTasks();
+  }
+  
+  moveToCompletedTasks(id: number) {
+    this.taskService.moveToCompletedTasks(id);
+    this.pendingTasks = this.taskService.getPendingTasks();
   }
 
+  moveToPendingTasks(id: number) {
+    this.taskService.moveToPendingTasks(id);
+    this.completedTasks = this.taskService.getCompletedTasks();
+  }
 
 }

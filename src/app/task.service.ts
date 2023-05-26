@@ -5,42 +5,60 @@ import Task from './Task';
   providedIn: 'root'
 })
 export class TaskService {
-// Id to uniquely identify each task
-pendingId = 1;
-completedId = 2;
+  // Id to uniquely identify each task
+  pendingId = 1;
+  completedId = 2;
 
-// arrays to store tasks
-pendingTasks: Task[] = []
-completedTasks: Task[] = []
+  // arrays to store tasks
+  pendingTasks: Task[] = []
+  completedTasks: Task[] = []
 
-constructor() {}
+  constructor() { }
 
-addPendingTask(title: string) : Task[] {
-  this.pendingTasks.push({id: this.pendingId++, title: title, pending: true});
-  return this.pendingTasks;
-}
+  addPendingTask(title: string): void {
+    this.pendingTasks.push({ id: this.pendingId++, title: title, pending: true });
+  }
 
-deletePendingTask(id: number) : Task[] {
-  this.pendingTasks = this.pendingTasks.filter((task) => task.id !== id);
-  return this.pendingTasks;
-}
+  deletePendingTask(id: number): void {
+    this.pendingTasks = this.pendingTasks.filter((task) => task.id !== id);
+  }
 
-getPendingTasks(): Task[] {
-  return this.pendingTasks;
-}
+  moveToCompletedTasks(id: number) {
+    const task: Task | undefined = this.pendingTasks.find((task) => task.id === id);
+    if (task === undefined) {
+      console.log('something went wrong, not able to find the task for the given id');
+      return;
+    }
 
-addCompletedTask(title: string) : Task[] {
-  this.completedTasks.push({id: this.completedId++, title: title, pending: false});
-  return this.completedTasks;
-}
+    this.deletePendingTask(task.id);
+    this.addCompletedTask(task.title);
+  }
 
-deleteCompletedTask(id: number) : Task[] {
-  this.completedTasks = this.completedTasks.filter((task) => task.id !== id);
-  return this.completedTasks;
-}
+  moveToPendingTasks(id: number) {
+    const task: Task | undefined = this.completedTasks.find((task) => task.id === id);
+    if (task === undefined) {
+      console.log('something went wrong, not able to find the task for the given id');
+      return;
+    }
 
-getCompletedTasks() : Task[] {
-  return this.completedTasks;
-}
+    this.deleteCompletedTask(task.id);
+    this.addPendingTask(task.title);
+  }
+
+  getPendingTasks(): Task[] {
+    return this.pendingTasks;
+  }
+
+  addCompletedTask(title: string): void {
+    this.completedTasks.push({ id: this.completedId++, title: title, pending: false });
+  }
+
+  deleteCompletedTask(id: number): void {
+    this.completedTasks = this.completedTasks.filter((task) => task.id !== id);
+  }
+
+  getCompletedTasks(): Task[] {
+    return this.completedTasks;
+  }
 
 }

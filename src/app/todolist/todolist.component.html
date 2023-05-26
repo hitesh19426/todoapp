@@ -11,8 +11,9 @@
     <ul>
         <li *ngFor="let task of pendingTasks">
             <span> {{task.title}} </span>
-            <button (click)="deletePendingTask(task.id)"> Delete </button>
             <button> Edit </button>
+            <button (click)="moveToCompletedTasks(task.id)"> Move to Complete </button>
+            <button (click)="deletePendingTask(task.id)"> Delete </button>
         </li>
     </ul>
 
@@ -20,6 +21,7 @@
     <ul>
         <li *ngFor="let task of completedTasks">
             <span> {{task.title}} </span>
+            <button (click)="moveToPendingTasks(task.id)"> Move to Pending </button>
             <button (click)="deleteCompletedTask(task.id)"> Delete </button>
         </li>
     </ul>
