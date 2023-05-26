@@ -1,0 +1,16 @@
+<form [formGroup]="addTitleForm" (ngSubmit)="onAddTitleFormSubmit()">
+    <div>
+        <label for="title"> Title </label>
+        <input id="title" type="text" formControlName="title" >
+    </div>
+
+    <div>
+        <input id="status" type="radio" value="pending" formControlName="status">
+        <label for="status"> Pending </label>
+
+        <input id="status" type="radio" value="completed" formControlName="status">
+        <label for="status"> Completed </label>
+    </div>
+
+    <button type="submit"> Add Task </button>
+</form>
