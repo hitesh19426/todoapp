@@ -1,1 +1,27 @@
 <p>todolist works!</p>
+
+
+<div>
+
+    <button (click)="addPendingTask()"> Add Pending Task </button>
+    <button (click)="addCompletedTask()"> Add Complted Task </button>
+
+
+    <p> Pending Tasks: </p>
+    <ul>
+        <li *ngFor="let task of pendingTasks">
+            <span> {{task.title}} </span>
+            <button (click)="deletePendingTask(task.id)"> Delete </button>
+            <button> Edit </button>
+        </li>
+    </ul>
+
+    <p> Completed Tasks: </p>
+    <ul>
+        <li *ngFor="let task of completedTasks">
+            <span> {{task.title}} </span>
+            <button (click)="deleteCompletedTask(task.id)"> Delete </button>
+        </li>
+    </ul>
+
+</div>
