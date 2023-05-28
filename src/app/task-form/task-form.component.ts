@@ -32,4 +32,12 @@ export class TaskFormComponent {
     }
   }
 
+  addPendingTask(title: string = "Pending Task"){
+    this.taskService.addPendingTask(title);
+  }
+
+  addCompletedTask(title: string = "Completed Task"){
+    this.taskService.addCompletedTask(title);
+  }
+
 }
