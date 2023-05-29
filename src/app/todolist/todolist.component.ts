@@ -11,6 +11,10 @@ export class TodolistComponent {
   pendingTasks: Task[] = this.taskService.getPendingTasks();
   completedTasks: Task[] = this.taskService.getCompletedTasks();
 
+  showEditForm: boolean = false;
+  editTaskId: number | undefined = undefined;
+  editTaskTitle: string | undefined = undefined;
+
   constructor(private taskService: TaskService){
     
   }
@@ -42,6 +46,30 @@ export class TodolistComponent {
   moveToPendingTasks(id: number) {
     this.taskService.moveToPendingTasks(id);
     this.completedTasks = this.taskService.getCompletedTasks();
+  }
+
+  editTask(id: number | undefined){
+    if(id === undefined){
+      console.log('id cant be undefined.');
+      return;
+    }
+
+    const task: Task | undefined = this.pendingTasks.find((task) => task.id === id);
+    if(task === undefined){
+      console.log('task cant be undefined. Something went wrong');
+      return;
+    }
+
+    // console.log('task in edit title = ', task);
+
+    this.editTaskTitle = task.title;
+    this.editTaskId = id;
+    this.showEditForm = true;
+  }
+
+  OnEditTitle() {
+    this.pendingTasks = this.taskService.getPendingTasks();
+    this.showEditForm = false;
   }
 
 }

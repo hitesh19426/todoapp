@@ -1,0 +1,8 @@
+<form [formGroup]="editTitleForm" (ngSubmit)="onEditTitleFormSubmit()" >
+    <div>
+        <label for="title"> New Title </label>
+        <input id="title" type="text" formControlName="title" >
+    </div>
+
+    <button type="submit"> Submit </button>
+</form>

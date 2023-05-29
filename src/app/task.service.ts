@@ -61,4 +61,17 @@ export class TaskService {
     return this.completedTasks;
   }
 
+  editTaskTitle(id: number | undefined, newTitle: string | undefined) : void {
+    if(id === undefined || newTitle === undefined){
+      console.log('something went wrong. task cant be undefined');
+      return;
+    }
+
+    this.pendingTasks.map((task) => {
+      if(task.id === id){
+        task.title = newTitle;
+      }
+    })
+  }
+
 }
