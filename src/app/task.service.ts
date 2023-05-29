@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import Task from './Task';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class TaskService {
   pendingTasks: Task[] = []
   completedTasks: Task[] = []
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   addPendingTask(title: string): void {
     this.pendingTasks.push({ id: this.pendingId++, title: title, pending: true });
@@ -74,4 +75,9 @@ export class TaskService {
     })
   }
 
+  getRandomTitle(){
+    const resp = this.http.get<string[]>("https://random-word-api.herokuapp.com/word");
+    console.log('resp = ', resp);
+    return resp;
+  }
 }

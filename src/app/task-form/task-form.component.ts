@@ -8,9 +8,7 @@ import { TaskService } from '../task.service';
   styleUrls: ['./task-form.component.scss']
 })
 export class TaskFormComponent {
-  constructor(private taskService: TaskService, private formBuilder: FormBuilder){
-
-  }
+  constructor(private taskService: TaskService, private formBuilder: FormBuilder){}
 
   addTitleForm = this.formBuilder.group({
     title: new FormControl(''),
@@ -43,6 +41,26 @@ export class TaskFormComponent {
 
   addCompletedTask(title: string = "Completed Task"){
     this.taskService.addCompletedTask(title);
+  }
+
+  addRandomTask(){
+    console.log('called random task function');
+    var randomWord: string | undefined = undefined;
+
+    // TODO: Is there some way to do this using wait/async?
+    this.taskService.getRandomTitle().subscribe(res => {
+      console.log('res = ', res);
+      randomWord = res[0];
+      
+      if(randomWord === undefined){
+        console.log('random word is undefined.');
+        return;
+      }
+      
+      console.log('random word = ', randomWord);
+      this.taskService.addPendingTask(randomWord);
+      console.log('pendingTasks = ', this.taskService.getPendingTasks());
+    });
   }
 
 }
