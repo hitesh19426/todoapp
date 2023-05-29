@@ -11,12 +11,11 @@
     <ul>
         <li *ngFor="let task of pendingTasks">
             <span> {{task.title}} </span>
-            <button (click)="editTask(task.id)"> Edit </button>
-            {{task.id}}
-            <!-- <a [routerLink]="['/tasks/edit', task.id]" >Edit</a>
-            <a [routerLink]="'about'" >About</a> -->
-            <button (click)="moveToCompletedTasks(task.id)"> Move to Complete </button>
-            <button (click)="deletePendingTask(task.id)"> Delete </button>
+            <button type="button" (click)="editTask(task.id)"> Edit </button>
+            <!-- <a [routerLink]="['/tasks/edit', task.id]" >Edit</a> -->
+            <!-- <a [routerLink]="'about'" >About</a> -->
+            <button type="button" (click)="moveToCompletedTasks(task.id)"> Move to Complete </button>
+            <button type="button" (click)="deletePendingTask(task.id)"> Delete </button>
         </li>
     </ul>
 

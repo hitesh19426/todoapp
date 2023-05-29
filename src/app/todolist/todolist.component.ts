@@ -60,10 +60,10 @@ export class TodolistComponent {
       return;
     }
 
-    // console.log('task in edit title = ', task);
+    console.log('task in edit title = ', task);
 
-    this.editTaskTitle = task.title;
     this.editTaskId = id;
+    this.editTaskTitle = task.title;
     this.showEditForm = true;
   }
 

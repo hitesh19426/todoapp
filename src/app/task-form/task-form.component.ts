@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl } from '@angular/forms';
 import { TaskService } from '../task.service';
 
 @Component({
@@ -18,14 +18,18 @@ export class TaskFormComponent {
   });
 
   onAddTitleFormSubmit() : void {
+    console.log('onAddTitleFormSUbmit function called');
+    
     const status = this.addTitleForm.value.status;
     const title = this.addTitleForm.value.title;
     if(status === null || title === null || title === undefined){
       // TODO: add form + input validation here.
       console.log('something went wrong, please check input and make sure they are valid');
     }else if(status === "pending"){
+      console.log('adding pending task');
       this.taskService.addPendingTask(title);
     }else if(status === 'completed'){
+      console.log('adding completed task');
       this.taskService.addCompletedTask(title);
     }else{
       console.log('option passed to title|status is wrong somehow.');
@@ -33,6 +37,7 @@ export class TaskFormComponent {
   }
 
   addPendingTask(title: string = "Pending Task"){
+    console.log('addPendingTask function called');
     this.taskService.addPendingTask(title);
   }
 

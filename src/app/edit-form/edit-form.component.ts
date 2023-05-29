@@ -1,27 +1,33 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { TaskService } from '../task.service';
 import { FormBuilder, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-edit-form',
   templateUrl: './edit-form.component.html',
-  styleUrls: ['./edit-form.component.scss']
+  styleUrls: ['./edit-form.component.scss'],
+  inputs: ['taskId', 'initialTaskTitle'],
 })
 
-export class EditFormComponent {
+export class EditFormComponent implements OnInit {
 
   @Input() taskId: number | undefined;
   @Input() initialTaskTitle: string | undefined;
   @Output() editTitle = new EventEmitter();
-  
-  constructor(private taskService: TaskService, private formBuilder: FormBuilder) {
-    this.taskId = undefined;
-    this.initialTaskTitle = undefined;
-  }
 
   editTitleForm = this.formBuilder.group({
-    title: new FormControl(''),
+    title: new FormControl(),
   })
+  
+  constructor(private taskService: TaskService, private formBuilder: FormBuilder) {}
+
+  // If you need to initialize some values using passed components, do that in ngOnInit method
+  // and not in constructor. Its like react useEffects hook.
+  ngOnInit(): void {
+    this.editTitleForm.patchValue({
+      title: this.initialTaskTitle,
+    })
+  }
 
   onEditTitleFormSubmit(): void {
     const title = this.editTitleForm.value.title;
