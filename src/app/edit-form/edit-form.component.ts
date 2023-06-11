@@ -1,6 +1,7 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { TaskService } from '../task.service';
 import { FormBuilder, FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-edit-form',
@@ -19,7 +20,7 @@ export class EditFormComponent implements OnInit {
     title: new FormControl(),
   })
   
-  constructor(private taskService: TaskService, private formBuilder: FormBuilder) {}
+  constructor(private taskService: TaskService, private formBuilder: FormBuilder, private router: Router) {}
 
   // If you need to initialize some values using passed components, do that in ngOnInit method
   // and not in constructor. Its like react useEffects hook.
@@ -43,7 +44,8 @@ export class EditFormComponent implements OnInit {
     // so this approach would not work in general
 
     this.taskService.editTaskTitle(this.taskId, title);
-    this.editTitle.emit();
+    this.router.navigate(['']);
+    // this.editTitle.emit();
     
     // this.tasks = this.taskService.getTaskList()
     // this.showEdit = false;

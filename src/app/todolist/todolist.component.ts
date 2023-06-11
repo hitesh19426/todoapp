@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import Task from '../Task';
 import { TaskService } from '../task.service';
 
@@ -7,7 +7,7 @@ import { TaskService } from '../task.service';
   templateUrl: './todolist.component.html',
   styleUrls: ['./todolist.component.scss']
 })
-export class TodolistComponent {
+export class TodolistComponent implements OnInit {
   pendingTasks: Task[] = this.taskService.getPendingTasks();
   completedTasks: Task[] = this.taskService.getCompletedTasks();
 
@@ -16,7 +16,10 @@ export class TodolistComponent {
   editTaskTitle: string | undefined = undefined;
 
   constructor(private taskService: TaskService){
-    
+    this.pendingTasks = this.taskService.getPendingTasks()
+  }
+  ngOnInit(): void {
+    this.pendingTasks = this.taskService.getPendingTasks();
   }
 
   addPendingTask(title: string = 'Pending Task') {

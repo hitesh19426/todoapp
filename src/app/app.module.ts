@@ -9,6 +9,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { EditPageComponent } from './edit-page/edit-page.component';
 import { EditFormComponent } from './edit-form/edit-form.component';
 import { HttpClientModule } from '@angular/common/http';
+import { provideRouter } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,9 @@ import { HttpClientModule } from '@angular/common/http';
     ReactiveFormsModule,
     HttpClientModule,
   ],
-  providers: [],
+  providers: [
+    
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

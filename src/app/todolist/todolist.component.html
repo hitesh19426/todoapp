@@ -11,9 +11,7 @@
     <ul>
         <li *ngFor="let task of pendingTasks">
             <span> {{task.title}} </span>
-            <button type="button" (click)="editTask(task.id)"> Edit </button>
-            <!-- <a [routerLink]="['/tasks/edit', task.id]" >Edit</a> -->
-            <!-- <a [routerLink]="'about'" >About</a> -->
+            <a [routerLink]="['/tasks/edit', task.id]" [state]="{initialTaskTitle: task.title}">Edit</a>
             <button type="button" (click)="moveToCompletedTasks(task.id)"> Move to Complete </button>
             <button type="button" (click)="deletePendingTask(task.id)"> Delete </button>
         </li>
