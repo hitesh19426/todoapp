@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import Task from '../Task';
 import { TaskService } from '../task.service';
 
@@ -7,12 +7,19 @@ import { TaskService } from '../task.service';
   templateUrl: './todolist.component.html',
   styleUrls: ['./todolist.component.scss']
 })
-export class TodolistComponent {
+export class TodolistComponent implements OnInit {
   pendingTasks: Task[] = this.taskService.getPendingTasks();
   completedTasks: Task[] = this.taskService.getCompletedTasks();
 
+  showEditForm: boolean = false;
+  editTaskId: number | undefined = undefined;
+  editTaskTitle: string | undefined = undefined;
+
   constructor(private taskService: TaskService){
-    
+    this.pendingTasks = this.taskService.getPendingTasks()
+  }
+  ngOnInit(): void {
+    this.pendingTasks = this.taskService.getPendingTasks();
   }
 
   addPendingTask(title: string = 'Pending Task') {
@@ -42,6 +49,30 @@ export class TodolistComponent {
   moveToPendingTasks(id: number) {
     this.taskService.moveToPendingTasks(id);
     this.completedTasks = this.taskService.getCompletedTasks();
+  }
+
+  editTask(id: number | undefined){
+    if(id === undefined){
+      console.log('id cant be undefined.');
+      return;
+    }
+
+    const task: Task | undefined = this.pendingTasks.find((task) => task.id === id);
+    if(task === undefined){
+      console.log('task cant be undefined. Something went wrong');
+      return;
+    }
+
+    console.log('task in edit title = ', task);
+
+    this.editTaskId = id;
+    this.editTaskTitle = task.title;
+    this.showEditForm = true;
+  }
+
+  OnEditTitle() {
+    this.pendingTasks = this.taskService.getPendingTasks();
+    this.showEditForm = false;
   }
 
 }
